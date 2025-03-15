@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace CryptoViewer.WPF.Views
 {
     /// <summary>
-    /// Interaction logic for CurrencyDetailView.xaml
+    /// Interaction logic for CurrenciesView.xaml
     /// </summary>
-    public partial class CurrencyDetailView : UserControl
+    public partial class CurrenciesView : UserControl
     {
-        public CurrencyDetailView()
+        public CurrenciesView()
         {
             InitializeComponent();
         }
