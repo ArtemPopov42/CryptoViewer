@@ -8,13 +8,13 @@ namespace CryptoViewer.Data.Models
 {
     public class AssetsResponce
     {
-        public Currency Data { get; set; }
+        public IEnumerable<Currency> Data { get; set; }
         public long Timestamp { get; set; }
     }
 
     public class AssetsIdResponce
     {
-        public IEnumerable<Currency> Data { get; set; }
+        public Currency Data { get; set; }
         public long Timestamp { get; set; }
     }
 }
