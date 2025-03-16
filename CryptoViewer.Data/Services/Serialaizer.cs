@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.Data.Services
 {
-    internal class Serialaizer
+    public class Serialaizer
     {
         private static readonly JsonSerializerOptions _serializeOptions = new JsonSerializerOptions
             {

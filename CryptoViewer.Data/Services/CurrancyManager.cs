@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.Data.Services
 {
-    public class CurrancyManager
+    public class CurrencyManager
     {
         private readonly Client _client;
 
-        public CurrancyManager()
+        public CurrencyManager()
         {
             _client = Client.GetClient();
         }
 
         public IEnumerable<Currency> GetAllAssets()
         {
-            string responceStr = _client.GetAsync("/assets");
+            string responceStr = _client.GetAsync("assets");
             if (responceStr == null || responceStr.Length == 0) {
                 throw new Exception("empty responce"); 
             }

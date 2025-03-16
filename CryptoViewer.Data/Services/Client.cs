@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.Data.Services
 {
-    internal class Client
+    public class Client
     {
         private static Client? _client;
         private HttpClient _httpClient;
@@ -17,7 +17,7 @@ namespace CryptoViewer.Data.Services
         {
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://api.coincap.io/v2"),
+                BaseAddress = new Uri("https://api.coincap.io/v2/"),
             };
         }
 

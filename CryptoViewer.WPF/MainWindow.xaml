@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CryptoViewer.WPF"
         xmlns:views="clr-namespace:CryptoViewer.WPF.Views"
+        xmlns:viewModels="clr-namespace:CryptoViewer.WPF.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -20,6 +21,12 @@
         </Grid>
 
         <Grid Grid.Row="1">
+            <Grid.Resources>
+                <DataTemplate DataType="{x:Type viewModels:CurrenciesViewModel}">
+                    <views:CurrenciesView/>
+                </DataTemplate>
+            </Grid.Resources>
+            <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>
     </Grid>
 </Window>
