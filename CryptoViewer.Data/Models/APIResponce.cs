@@ -12,7 +12,7 @@ namespace CryptoViewer.Data.Models
         public long Timestamp { get; set; }
     }
 
-    public class AssetsIdResponce
+    public class AssetsByIdResponce
     {
         public Currency Data { get; set; }
         public long Timestamp { get; set; }
