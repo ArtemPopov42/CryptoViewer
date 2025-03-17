@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.WPF.ViewModels
 {
-    internal class CurrencyInfoViewModel
+    internal class CurrencyInfoViewModel:BaseViewModel
     {
         private Currency _currency;
 

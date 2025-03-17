@@ -20,5 +20,10 @@ namespace CryptoViewer.WPF.Services
             CurrentViewModel = CurrenciesViewModel;
             CurrencyDetailsViewModels = new ObservableCollection<BaseViewModel>();  
         }
+
+        public void CreateNewCurencyDetailsViewModel(CurrencyInfoViewModel currency)
+        {
+
+        }
     }
 }

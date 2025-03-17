@@ -15,12 +15,14 @@ namespace CryptoViewer.WPF.ViewModels
 
         private ObservableCollection<CurrencyListItemViewModel> _currencies;
 
-        public IEnumerable<CurrencyListItemViewModel> Currencies => _currencies;
+        public IEnumerable<CurrencyListItemViewModel> DisplayedCurrencies => _currencies;
 
         public CurrenciesViewModel()
         {
             _currencyManager = new CurrencyManager();
-            _currencies = new ObservableCollection<CurrencyListItemViewModel>(_currencyManager.GetAllAssets().Select(c => new CurrencyListItemViewModel(c)));
+            _currencies = new ObservableCollection<CurrencyListItemViewModel>();
+            _currencies.Add(new CurrencyListItemViewModel(_currencyManager.GetAssetsById("bitcoin")));
+            //_currencies = new ObservableCollection<CurrencyListItemViewModel>(_currencyManager.GetAssetsAll().Select(c => new CurrencyListItemViewModel(c)));
         }
     }
 }
