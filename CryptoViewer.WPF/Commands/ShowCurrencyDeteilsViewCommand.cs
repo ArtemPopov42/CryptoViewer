@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.WPF.Commands
 {
-    internal class ShowCurrencyDeteilsCommand : BaseCommand
+    internal class ShowCurrencyDeteilsViewCommand : BaseCommand
     {
         private NavigationService _navegationService;
         private Func<string, Currency> _getCurrency;
 
-        public ShowCurrencyDeteilsCommand(NavigationService navegationService, Func<string, Currency> func)
+        public ShowCurrencyDeteilsViewCommand(NavigationService navegationService, Func<string, Currency> func)
         {
             _navegationService = navegationService;
             _getCurrency = func;

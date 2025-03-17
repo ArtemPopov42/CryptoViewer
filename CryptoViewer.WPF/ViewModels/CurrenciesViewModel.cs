@@ -46,7 +46,7 @@ namespace CryptoViewer.WPF.ViewModels
             _currencies = new ObservableCollection<CurrencyListItemViewModel>();
             _currencies = new ObservableCollection<CurrencyListItemViewModel>(_currencyManager.GetAssetsAll().Select(c => new CurrencyListItemViewModel(c)));
 
-            ShowCarrencyDetails = new ShowCurrencyDeteilsCommand(_navigationService,_currencyManager.GetAssetsById);
+            ShowCarrencyDetails = new ShowCurrencyDeteilsViewCommand(_navigationService,_currencyManager.GetAssetsById);
         }
     }
 }
