@@ -21,7 +21,7 @@
                     <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Vertical">
-                    <TextBlock Text="SYmbol:"/>
+                    <TextBlock Text="Symbol:"/>
                     <TextBlock Text="Price USD:"/>
                     <TextBlock Text="MarketCap USD:"/>
                     <TextBlock Text="Price change 24 hours:"/>

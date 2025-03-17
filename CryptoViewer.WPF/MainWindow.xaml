@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:CryptoViewer.WPF"
         xmlns:views="clr-namespace:CryptoViewer.WPF.Views"
         xmlns:viewModels="clr-namespace:CryptoViewer.WPF.ViewModels"
@@ -15,9 +16,46 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding ShowCurrenciesView}">Currencies</Button>
-            </StackPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" 
+                    Command="{Binding ShowCurrenciesView}">
+                Currencies
+            </Button>
+
+            <ListView Grid.Column="1" 
+                      ItemsSource="{Binding CurrencyDetailsViewModels}"
+                      SelectedItem="{Binding SelectedViewModel, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding SwitchToCurrencyDetails}"
+                                               CommandParameter="{Binding SelectedViewModel}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding CurrencyInfo.Name}" Grid.Column="0"/>
+                            <Button Grid.Column="1"
+                                    Command="{Binding CloseCurrencyDetailsView}"
+                                    CommandParameter="{Binding}">
+                                X
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"></StackPanel>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
         </Grid>
 
         <Grid Grid.Row="1">
