@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.WPF.ViewModels
 {
-    internal class CurrencyInfoViewModel:BaseViewModel
+    public class CurrencyInfoViewModel:BaseViewModel
     {
         private Currency _currency;
 
+        public string Id => _currency.Id;
         public string Name => _currency.Name;
         public string Symbol => _currency.Symbol;
         public string Price => _currency.PriceUsd;
+        public string MarketCap => _currency.MarketCapUsd;
         public string Change => _currency.ChangePercent24Hr;
         public string Volume => _currency.VolumeUsd24Hr;
         public string Vwap => _currency.Vwap24Hr;

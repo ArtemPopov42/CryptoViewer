@@ -12,6 +12,7 @@ namespace CryptoViewer.WPF.ViewModels
     {
         private Currency _currency;
 
+        public string Id => _currency.Id;
         public string Name => _currency.Name;
         public string Symbol => _currency.Symbol;
         public string Price => _currency.PriceUsd;

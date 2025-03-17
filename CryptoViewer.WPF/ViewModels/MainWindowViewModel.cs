@@ -12,19 +12,17 @@ namespace CryptoViewer.WPF.ViewModels
     {
         private NavigationService _navigationService;
 
-        public BaseViewModel CurrentViewModel 
-        { 
-            get => _navigationService.CurrentViewModel; 
-            set
-            {
-                _navigationService.CurrentViewModel = value;
-                OnPropertyChanged();
-            }
-        } 
+        public BaseViewModel CurrentViewModel => _navigationService.CurrentViewModel;
 
         public MainWindowViewModel()
         {
-            _navigationService = new NavigationService(new CurrenciesViewModel());
+            _navigationService = new NavigationService();
+            _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
     }
 }

@@ -25,6 +25,9 @@
                 <DataTemplate DataType="{x:Type viewModels:CurrenciesViewModel}">
                     <views:CurrenciesView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type viewModels:CurrencyDetailsViewModel}">
+                    <views:CurrencyDetailsView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>
