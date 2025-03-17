@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CryptoViewer.WPF.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,21 @@ namespace CryptoViewer.WPF.ViewModels
 {
     public class MainWindowViewModel:BaseViewModel
     {
-        private BaseViewModel _currentViewModel;
+        private NavigationService _navigationService;
 
         public BaseViewModel CurrentViewModel 
         { 
-            get => _currentViewModel; 
+            get => _navigationService.CurrentViewModel; 
             set
             {
-                _currentViewModel = value;
+                _navigationService.CurrentViewModel = value;
                 OnPropertyChanged();
             }
         } 
 
         public MainWindowViewModel()
         {
-            _currentViewModel = new CurrenciesViewModel();
+            _navigationService = new NavigationService(new CurrenciesViewModel());
         }
     }
 }
