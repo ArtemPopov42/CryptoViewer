@@ -55,5 +55,12 @@ namespace CryptoViewer.WPF.ViewModels
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
+        public override void Dispose()
+        {
+            _navigationService.CurrentViewModelChanged -= OnCurrentViewModelChanged;
+            _navigationService.CurrencyDetailsViewModelsChanged -= OnCurrencyDetailsViewModelsChanged;
+            base.Dispose();
+        }
     }
 }
