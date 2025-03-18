@@ -20,6 +20,8 @@ namespace CryptoViewer.WPF.ViewModels
         public string Price => _market.PriceUsd;
         public string Symbol => _market.BaseSymbol + _market.QuoteSymbol;
 
+        public DateTime Timestamp => DateTimeOffset.FromUnixTimeMilliseconds(_market.Updated).DateTime;
+
         public MarketViewModel(Market market)
         {
             _market = market;
