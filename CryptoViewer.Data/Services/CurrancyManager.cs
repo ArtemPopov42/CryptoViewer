@@ -11,44 +11,54 @@ namespace CryptoViewer.Data.Services
     {
         private readonly Client _client;
 
+        private IEnumerable<Currency>? _currencies = null;
+
         public CurrencyManager()
         {
             _client = Client.GetClient();
         }
 
-        public IEnumerable<Currency> GetAssetsAll()
+        public async Task<IEnumerable<Currency>?> GetCurrenciesAsync()
         {
-            string responceStr = _client.GetAsync("assets");
-            if (responceStr == null || responceStr.Length == 0) {
-                throw new Exception("empty responce"); 
-            }
+            _currencies ??= await GetAssetsAll();
 
-            AssetsResponce? responce = Serialaizer.Deserialize<AssetsResponce>(responceStr);
-
-            if(responce is null)
-            {
-                return new List<Currency>();
-            }
-
-            return responce.Data;
+            return _currencies;
         }
 
-        public Currency GetAssetsById(string currencyId)
+        public async Task UpdateCurrencies()
         {
-            string responceStr = _client.GetAsync("assets/" + currencyId);
-            if (responceStr == null || responceStr.Length == 0)
-            {
-                throw new Exception("empty responce");
-            }
+            _currencies = await GetAssetsAll();
+            OnCurrenciesChanged();
+        }
 
-            AssetsByIdResponce? responce = Serialaizer.Deserialize<AssetsByIdResponce>(responceStr);
+        private async Task<IEnumerable<Currency>?> GetAssetsAll()
+        {
+            string responceStr = await _client.GetAsync("assets");
 
-            if (responce is null)
-            {
-                return new Currency();
-            }
+            ResponceList<Currency>? responce = Serialaizer.Deserialize<ResponceList<Currency>>(responceStr);
 
-            return responce.Data;
+            return responce?.Data;
+        }
+
+        public async Task<Currency?> GetAssetsByIdAsync(string currencyId)
+        {
+            return (await GetCurrenciesAsync())?.First(c => c.Id == currencyId);
+        }
+
+        public async Task<IEnumerable<Market>?> GetAssetMarketsAsync(string currencyId)
+        {
+            string responceStr = await _client.GetAsync("markets?quoteId="+currencyId);
+
+            ResponceList<Market>? responce = Serialaizer.Deserialize<ResponceList<Market>>(responceStr);
+
+            return responce?.Data;
+        }
+
+        public event Action CurrenciesChanged;
+
+        private void OnCurrenciesChanged()
+        {
+            CurrenciesChanged?.Invoke();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace CryptoViewer.WPF.ViewModels
 {
     public class MainWindowViewModel:BaseViewModel
     {
-        private NavigationService _navigationService;
+        private readonly NavigationService _navigationService;
 
         private CurrencyDetailsViewModel? _selectedViewModel;
 
@@ -20,7 +20,7 @@ namespace CryptoViewer.WPF.ViewModels
 
         public ObservableCollection<CurrencyDetailsViewModel> CurrencyDetailsViewModels =>_navigationService.CurrencyDetailsViewModels;
 
-        public CurrencyDetailsViewModel SelectedViewModel
+        public CurrencyDetailsViewModel? SelectedViewModel
         {
             get => _selectedViewModel;
             set
@@ -36,6 +36,7 @@ namespace CryptoViewer.WPF.ViewModels
         public MainWindowViewModel()
         {
             _navigationService = new NavigationService();
+            OnCurrentViewModelChanged();
             _navigationService.CurrentViewModelChanged += OnCurrentViewModelChanged;
             _navigationService.CurrencyDetailsViewModelsChanged += OnCurrencyDetailsViewModelsChanged;
 

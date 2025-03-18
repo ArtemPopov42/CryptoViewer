@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.Data.Models
 {
-    public class AssetsResponce
+    public class ResponceList<T>
     {
-        public IEnumerable<Currency> Data { get; set; }
+        public IEnumerable<T> Data { get; set; }
         public long Timestamp { get; set; }
     }
 
-    public class AssetsByIdResponce
+    public class Responce<T>
     {
-        public Currency Data { get; set; }
+        public T Data { get; set; }
         public long Timestamp { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.WPF.ViewModels
 {
-    public class CurrencyInfoViewModel:BaseViewModel
+    public class CurrencyViewModel:BaseViewModel
     {
         private Currency _currency;
 
@@ -22,7 +22,7 @@ namespace CryptoViewer.WPF.ViewModels
         public string Supply => _currency.Supply;
         public string MaxSupply => _currency.MaxSupply;
 
-        public CurrencyInfoViewModel(Currency currency)
+        public CurrencyViewModel(Currency currency)
         {
             _currency = currency;
         }

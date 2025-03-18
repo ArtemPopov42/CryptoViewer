@@ -15,7 +15,7 @@ namespace CryptoViewer.WPF.ViewModels
 {
     public class CurrenciesViewModel:BaseViewModel
     {
-        private CurrencyManager _currencyManager;
+        private readonly CurrencyManager _currencyManager;
 
         private readonly NavigationService _navigationService;
 
@@ -25,9 +25,9 @@ namespace CryptoViewer.WPF.ViewModels
 
         private string _searchString = string.Empty;
 
-        public CurrencyManager CurrencyManager { get; }
+        public CurrencyManager CurrencyManager { get => _currencyManager; }
 
-        public ICollectionView DisplayedCurrencies { get; }
+        public ICollectionView DisplayedCurrencies { get; set; }
 
         public string SearchString
         {
@@ -46,7 +46,7 @@ namespace CryptoViewer.WPF.ViewModels
             set
             {
                 _currencies = value;
-                OnPropertyChanged(nameof(DisplayedCurrencies));
+                OnPropertyChanged(nameof(Currencies));
             }
         }
 
@@ -60,25 +60,29 @@ namespace CryptoViewer.WPF.ViewModels
             }
         }
         public ICommand ShowCarrencyDetails { get; }
+        public ICommand LoadCurrenciesList { get; }
 
         public CurrenciesViewModel(NavigationService navigationService)
         {
             _navigationService = navigationService;
             _currencyManager = new CurrencyManager();
-            _currencies = new ObservableCollection<CurrencyListItemViewModel>(_currencyManager.GetAssetsAll().Select(c => new CurrencyListItemViewModel(c)));
-            _selectedItem = _currencies[0];
+            _currencies = new ObservableCollection<CurrencyListItemViewModel>();
 
             DisplayedCurrencies = CollectionViewSource.GetDefaultView(Currencies);
-            DisplayedCurrencies.Filter = obj =>
-            {
-                if(obj is CurrencyListItemViewModel item)
-                {
-                    return item.Name.ToLower().Contains(_searchString.ToLower()) || item.Symbol.ToLower().Contains(_searchString.ToLower());
-                }
-                return false;
-            };
+            DisplayedCurrencies.Filter = Filter;
 
-            ShowCarrencyDetails = new ShowCurrencyDeteilsViewCommand(_navigationService,_currencyManager.GetAssetsById);
+            ShowCarrencyDetails = new ShowCurrencyDeteilsViewCommand(_navigationService, this);
+            LoadCurrenciesList = new LoadCurrenciesListCommand(this);
+            LoadCurrenciesList.Execute(null);
+        }
+
+        private bool Filter(object obj)
+        {
+            if (obj is CurrencyListItemViewModel item)
+            {
+                return item.Name.ToLower().Contains(_searchString.ToLower()) || item.Symbol.ToLower().Contains(_searchString.ToLower());
+            }
+            return false;
         }
     }
 }

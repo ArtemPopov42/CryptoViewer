@@ -18,7 +18,11 @@ namespace CryptoViewer.Data.Services
 
         public static T? Deserialize<T>(string jsonStr)
         {
+            if (jsonStr is null || jsonStr == String.Empty)
+            {
+                return default(T);
+            }
             return JsonSerializer.Deserialize<T>(jsonStr, _serializeOptions);
         }
-}
+    }
 }

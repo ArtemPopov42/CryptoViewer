@@ -48,41 +48,35 @@
                        FontSize="20"/>
         </StackPanel>
 
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1"
+                  ItemsSource="{Binding Markets}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Exchange name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text=""/>
+                                <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Symbol">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text=""/>
+                                <TextBlock Text="{Binding Symbol}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Price, USD">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text=""/>
+                                <TextBlock Text="{Binding Price}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Volume 24Hr">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text=""/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Volume percent">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text=""/>
+                                <TextBlock Text="{Binding Volume}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

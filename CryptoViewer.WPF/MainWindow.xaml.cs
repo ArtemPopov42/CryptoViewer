@@ -23,7 +23,7 @@ namespace CryptoViewer.WPF
     {
         public MainWindow()
         {
-            this.DataContext = new MainWindowViewModel();
+            DataContext = new MainWindowViewModel();
             InitializeComponent();
         }
     }

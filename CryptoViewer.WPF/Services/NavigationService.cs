@@ -15,6 +15,8 @@ namespace CryptoViewer.WPF.Services
 
         private ObservableCollection<CurrencyDetailsViewModel> _currencyDetailsViewModels;
 
+        private CurrenciesViewModel _currenciesViewModel { get; set; }
+
         public BaseViewModel CurrentViewModel 
         {
             get => _currentViewModel;
@@ -28,8 +30,6 @@ namespace CryptoViewer.WPF.Services
             } 
         }
 
-        private CurrenciesViewModel _currenciesViewModel { get; set; }
-
         public ObservableCollection<CurrencyDetailsViewModel> CurrencyDetailsViewModels 
         { 
             get => _currencyDetailsViewModels;
@@ -42,12 +42,12 @@ namespace CryptoViewer.WPF.Services
 
         public NavigationService()
         {
-            _currenciesViewModel = new CurrenciesViewModel(this);
+            _currenciesViewModel = new CurrenciesViewModel(this); 
             CurrentViewModel = _currenciesViewModel;
             CurrencyDetailsViewModels = new ObservableCollection<CurrencyDetailsViewModel>();  
         }
 
-        public void CreateNewCurencyDetailsViewModel(CurrencyInfoViewModel currency)
+        public void CreateNewCurencyDetailsViewModel(CurrencyViewModel currency)
         {
             if (!_currencyDetailsViewModels.Any(c => c.CurrencyInfo.Id == currency.Id))
             {

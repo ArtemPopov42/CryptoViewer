@@ -1,4 +1,5 @@
 ﻿using CryptoViewer.Data.Models;
+using CryptoViewer.Data.Services;
 using CryptoViewer.WPF.Services;
 using CryptoViewer.WPF.ViewModels;
 using System;
@@ -9,24 +10,21 @@ using System.Threading.Tasks;
 
 namespace CryptoViewer.WPF.Commands
 {
-    internal class ShowCurrencyDeteilsViewCommand : BaseCommand
+    internal class ShowCurrencyDeteilsViewCommand : BaseAsyncCommand
     {
         private NavigationService _navegationService;
-        private Func<string, Currency> _getCurrency;
+        private CurrenciesViewModel _viewModel;
 
-        public ShowCurrencyDeteilsViewCommand(NavigationService navegationService, Func<string, Currency> func)
+        public ShowCurrencyDeteilsViewCommand(NavigationService navegationService, CurrenciesViewModel currenciesViewModel)
         {
             _navegationService = navegationService;
-            _getCurrency = func;
+            _viewModel = currenciesViewModel;
         }
 
-        public override void Execute(object? parameter)
+        public override async Task ExecuteAsync(object parameter)
         {
-            if (parameter is CurrencyListItemViewModel)
-            {
-                var currency = new CurrencyInfoViewModel(_getCurrency.Invoke(((CurrencyListItemViewModel)parameter).Id));
-                _navegationService.CreateNewCurencyDetailsViewModel(currency);
-            }
+            CurrencyViewModel currency = new CurrencyViewModel(await _viewModel.CurrencyManager.GetAssetsByIdAsync(_viewModel.SelectedItem.Id));
+            _navegationService.CreateNewCurencyDetailsViewModel(currency);
         }
     }
 }

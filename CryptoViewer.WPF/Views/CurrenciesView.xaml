@@ -26,8 +26,7 @@
         <ListView Grid.Row="1" ItemsSource="{Binding DisplayedCurrencies}" SelectedItem="{Binding SelectedItem}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
-                    <i:InvokeCommandAction Command="{Binding ShowCarrencyDetails}"
-                                           CommandParameter="{Binding SelectedItem}"/>
+                    <i:InvokeCommandAction Command="{Binding ShowCarrencyDetails}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ListView.View>
