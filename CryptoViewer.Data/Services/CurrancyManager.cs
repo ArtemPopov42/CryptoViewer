@@ -21,7 +21,6 @@ namespace CryptoViewer.Data.Services
         public async Task<IEnumerable<Currency>?> GetCurrenciesAsync()
         {
             _currencies ??= await GetAssetsAll();
-
             return _currencies;
         }
 
@@ -29,6 +28,7 @@ namespace CryptoViewer.Data.Services
         {
             _currencies = await GetAssetsAll();
             OnCurrenciesChanged();
+
         }
 
         private async Task<IEnumerable<Currency>?> GetAssetsAll()

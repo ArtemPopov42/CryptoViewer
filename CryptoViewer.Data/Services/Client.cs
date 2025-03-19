@@ -1,4 +1,5 @@
 ﻿using CryptoViewer.Data.Models;
+using CryptoViewer.Data.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace CryptoViewer.Data.Services
                     return await response.Content.ReadAsStringAsync();
                 }
 
-                throw new Exception(response.ReasonPhrase);
+                throw new HttpClientBadRequestException(response.ReasonPhrase);
             }
         }
     }

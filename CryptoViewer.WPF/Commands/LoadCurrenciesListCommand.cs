@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace CryptoViewer.WPF.Commands
 {
@@ -20,15 +21,21 @@ namespace CryptoViewer.WPF.Commands
 
         public override async Task ExecuteAsync(object parameter)
         {
-            IEnumerable<Currency>? res = await _currenciesViewModel.CurrencyManager.GetCurrenciesAsync();
-            if (res is not null)
+            try
             {
-                _currenciesViewModel.Currencies.Clear();
-                foreach (CurrencyListItemViewModel currency in res.Select(c => new CurrencyListItemViewModel(c)))
+                IEnumerable<Currency>? res = await _currenciesViewModel.CurrencyManager.GetCurrenciesAsync();
+                if (res is not null)
                 {
-                    _currenciesViewModel.Currencies.Add(currency);
+                    _currenciesViewModel.Currencies.Clear();
+                    foreach (CurrencyListItemViewModel currency in res.Select(c => new CurrencyListItemViewModel(c)))
+                    {
+                        _currenciesViewModel.Currencies.Add(currency);
+                    }
+                    _currenciesViewModel.DisplayedCurrencies.Refresh();
                 }
-                _currenciesViewModel.DisplayedCurrencies.Refresh();
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

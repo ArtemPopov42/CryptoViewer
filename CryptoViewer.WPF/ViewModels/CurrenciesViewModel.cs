@@ -73,6 +73,7 @@ namespace CryptoViewer.WPF.ViewModels
 
             ShowCarrencyDetails = new ShowCurrencyDeteilsViewCommand(_navigationService, this);
             LoadCurrenciesList = new LoadCurrenciesListCommand(this);
+
             LoadCurrenciesList.Execute(null);
         }
 

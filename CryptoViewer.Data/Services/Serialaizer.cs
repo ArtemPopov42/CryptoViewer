@@ -20,7 +20,7 @@ namespace CryptoViewer.Data.Services
         {
             if (jsonStr is null || jsonStr == String.Empty)
             {
-                return default(T);
+                throw new ArgumentNullException(nameof(jsonStr));
             }
             return JsonSerializer.Deserialize<T>(jsonStr, _serializeOptions);
         }
