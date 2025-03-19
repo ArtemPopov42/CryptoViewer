@@ -8,11 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace CryptoViewer.WPF.ViewModels
 {
     public class CurrencyDetailsViewModel:BaseViewModel
     {
+        private DispatcherTimer _timer;
+
+        private EventHandler _eventHandler;
+
         private readonly NavigationService _navigationService;
 
         private readonly CurrencyManager _currencyManager;
@@ -34,6 +39,12 @@ namespace CryptoViewer.WPF.ViewModels
             NavigationService navigationService, 
             CurrencyManager currencyManager)
         {
+            _timer = new DispatcherTimer();
+            _timer.Interval = new TimeSpan(0, 0, 30);
+            _eventHandler = new EventHandler(OnTimerTick);
+            _timer.Tick += _eventHandler;
+            _timer.Start();
+
             _navigationService = navigationService;
             _currencyManager = currencyManager;
 
@@ -44,6 +55,22 @@ namespace CryptoViewer.WPF.ViewModels
             LoadMarkets = new LoadMarketsListCommand(this);
 
             LoadMarkets.Execute(null);
+        }
+
+        public void OnTimerTick(object? sender, EventArgs e)
+        {
+            if (IsActive)
+            {
+                LoadMarkets.Execute(null);
+            }
+        }
+
+        public override void Dispose()
+        {
+            _timer.Stop();
+            _timer.Tick -= _eventHandler;
+            _timer = null;
+            base.Dispose();
         }
     }
 }

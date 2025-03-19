@@ -24,7 +24,9 @@ namespace CryptoViewer.WPF.Services
             {
                 if (_currentViewModel != value)
                 {
+                    _currenciesViewModel.IsActive = false;
                     _currentViewModel = value;
+                    _currentViewModel.IsActive = true;
                     OnCurrentViewModelChanged();
                 }
             } 
@@ -65,6 +67,7 @@ namespace CryptoViewer.WPF.Services
         public void CloseCurrencyDetailsView(CurrencyDetailsViewModel viewModel)
         {
             _currencyDetailsViewModels.Remove(viewModel);
+            viewModel.Dispose();
             CurrentViewModel = _currenciesViewModel;
         }
         

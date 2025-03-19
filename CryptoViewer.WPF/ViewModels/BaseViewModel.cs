@@ -9,6 +9,7 @@ namespace CryptoViewer.WPF.ViewModels
 {
     public class BaseViewModel:ObservableObject
     {
+        public bool IsActive { get; set; }
         public virtual void Dispose() { }
     }
 }

@@ -27,8 +27,6 @@ namespace CryptoViewer.Data.Services
         public async Task UpdateCurrencies()
         {
             _currencies = await GetAssetsAll();
-            OnCurrenciesChanged();
-
         }
 
         private async Task<IEnumerable<Currency>?> GetAssetsAll()
@@ -52,13 +50,6 @@ namespace CryptoViewer.Data.Services
             ResponceList<Market>? responce = Serialaizer.Deserialize<ResponceList<Market>>(responceStr);
 
             return responce?.Data;
-        }
-
-        public event Action CurrenciesChanged;
-
-        private void OnCurrenciesChanged()
-        {
-            CurrenciesChanged?.Invoke();
         }
     }
 }

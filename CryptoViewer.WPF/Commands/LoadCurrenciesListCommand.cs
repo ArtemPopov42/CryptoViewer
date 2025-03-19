@@ -23,6 +23,7 @@ namespace CryptoViewer.WPF.Commands
         {
             try
             {
+                await _currenciesViewModel.CurrencyManager.UpdateCurrencies();
                 IEnumerable<Currency>? res = await _currenciesViewModel.CurrencyManager.GetCurrenciesAsync();
                 if (res is not null)
                 {
