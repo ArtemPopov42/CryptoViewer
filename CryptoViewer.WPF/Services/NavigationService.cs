@@ -56,12 +56,13 @@ namespace CryptoViewer.WPF.Services
                 CurrencyDetailsViewModel newViewModel = new(currency, this, _currenciesViewModel.CurrencyManager);
                 CurrencyDetailsViewModels.Add(newViewModel);
             }
-            CurrentViewModel = _currencyDetailsViewModels.First(c => c.CurrencyInfo.Id == currency.Id);
+            SwitchToCurrencyDetailsView(_currencyDetailsViewModels.First(c => c.CurrencyInfo.Id == currency.Id));
         }
 
         public void SwitchToCurrencyDetailsView(CurrencyDetailsViewModel viewModel)
         {
             CurrentViewModel = _currencyDetailsViewModels.First(vm => vm == viewModel);
+            viewModel.LoadMarkets.Execute(null);
         }
 
         public void CloseCurrencyDetailsView(CurrencyDetailsViewModel viewModel)
@@ -74,6 +75,7 @@ namespace CryptoViewer.WPF.Services
         public void ShowCurrenciesView()
         {
             CurrentViewModel = _currenciesViewModel;
+            _currenciesViewModel.LoadCurrenciesList.Execute(null);
         }
 
         public event Action CurrentViewModelChanged;
