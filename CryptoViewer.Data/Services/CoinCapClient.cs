@@ -12,12 +12,12 @@ using System.Collections;
 
 namespace CryptoViewer.Data.Services
 {
-    public class Client
+    public class CoinCapClient
     {
-        private static Client? _client;
+        private static CoinCapClient? _client;
         private HttpClient _httpClient;
 
-        private Client()
+        private CoinCapClient()
         {
             _httpClient = new HttpClient()
             {
@@ -26,11 +26,11 @@ namespace CryptoViewer.Data.Services
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "08eb1791-06ad-456b-8886-6270514d73e4");
         }
 
-        public static Client GetClient()
+        public static CoinCapClient GetClient()
         {
             if (_client is null)
             {
-                _client = new Client();
+                _client = new CoinCapClient();
             }
             return _client;
         }

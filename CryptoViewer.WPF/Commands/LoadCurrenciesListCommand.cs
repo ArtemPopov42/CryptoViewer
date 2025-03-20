@@ -28,7 +28,7 @@ namespace CryptoViewer.WPF.Commands
                 if (res is not null)
                 {
                     _currenciesViewModel.Currencies.Clear();
-                    foreach (CurrencyListItemViewModel currency in res.Select(c => new CurrencyListItemViewModel(c)))
+                    foreach (CurrencyViewModel currency in res.Select(c => new CurrencyViewModel(c)))
                     {
                         _currenciesViewModel.Currencies.Add(currency);
                     }

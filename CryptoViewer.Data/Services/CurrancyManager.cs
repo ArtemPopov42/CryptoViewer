@@ -9,13 +9,15 @@ namespace CryptoViewer.Data.Services
 {
     public class CurrencyManager
     {
-        private readonly Client _client;
+        private readonly CoinCapClient _coinCapClient;
+        private readonly BinanceClient _binanceClient;
 
         private IEnumerable<Currency>? _currencies = null;
 
         public CurrencyManager()
         {
-            _client = Client.GetClient();
+            _coinCapClient = CoinCapClient.GetClient();
+            _binanceClient = BinanceClient.GetClient();
         }
 
         public async Task<IEnumerable<Currency>?> GetCurrenciesAsync()
@@ -31,7 +33,7 @@ namespace CryptoViewer.Data.Services
 
         private async Task<IEnumerable<Currency>?> GetAssetsAll()
         {
-            string responceStr = await _client.GetAsync("assets");
+            string responceStr = await _coinCapClient.GetAsync("assets?limit=10");
 
             ResponceList<Currency>? responce = Serialaizer.Deserialize<ResponceList<Currency>>(responceStr);
 
@@ -45,11 +47,20 @@ namespace CryptoViewer.Data.Services
 
         public async Task<IEnumerable<Market>?> GetAssetMarketsAsync(string currencyId)
         {
-            string responceStr = await _client.GetAsync("markets?quoteId="+currencyId);
+            string responceStr = await _coinCapClient.GetAsync("markets?baseId="+currencyId+"&limit=30");
 
             ResponceList<Market>? responce = Serialaizer.Deserialize<ResponceList<Market>>(responceStr);
 
             return responce?.Data;
+        }
+
+        public async Task<IEnumerable<Candle>> GetCandlesAsync(string symbol, string interval = "1m", int candleCount = 50)
+        {
+            string responceStr = await _binanceClient.GetAsync($"uiKlines?symbol={symbol}&interval={interval}&limit={candleCount}");
+
+            IEnumerable<Candle> responce = Serialaizer.DesirealizeToCandlesFromAnnamedArray(responceStr);
+
+            return responce;
         }
     }
 }

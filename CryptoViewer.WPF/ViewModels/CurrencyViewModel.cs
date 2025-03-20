@@ -22,9 +22,26 @@ namespace CryptoViewer.WPF.ViewModels
         public string Supply => _currency.Supply;
         public string MaxSupply => _currency.MaxSupply;
 
+        public double PriceDouble => ParceToDouble(Price);
+        public double MarketCapDouble => ParceToDouble(MarketCap);
+        public double ChangeDouble => ParceToDouble(Change, 5);
+        public double VolumeDouble => ParceToDouble(Volume);
+        public double VwapDouble => ParceToDouble(Vwap);
+        public double SupplyDouble => ParceToDouble(Supply, 1);
+        public double MaxSupplyDouble => ParceToDouble(MaxSupply, 1);
+
         public CurrencyViewModel(Currency currency)
         {
             _currency = currency;
+        }
+
+        private double ParceToDouble(string str, int symbols = 3)
+        {
+            if(str is null || str == string.Empty)
+            {
+                return 0;
+            }
+            return Math.Round(double.Parse(str, System.Globalization.CultureInfo.InvariantCulture), symbols);
         }
     }
 }

@@ -24,9 +24,9 @@ namespace CryptoViewer.WPF.ViewModels
 
         private readonly NavigationService _navigationService;
 
-        private CurrencyListItemViewModel? _selectedItem;
+        private CurrencyViewModel? _selectedItem;
 
-        private ObservableCollection<CurrencyListItemViewModel> _currencies;
+        private ObservableCollection<CurrencyViewModel> _currencies;
 
         private string _searchString = string.Empty;
 
@@ -45,7 +45,7 @@ namespace CryptoViewer.WPF.ViewModels
             }
         }
 
-        public ObservableCollection<CurrencyListItemViewModel> Currencies
+        public ObservableCollection<CurrencyViewModel> Currencies
         {
             get => _currencies;
             set
@@ -55,7 +55,7 @@ namespace CryptoViewer.WPF.ViewModels
             }
         }
 
-        public CurrencyListItemViewModel? SelectedItem
+        public CurrencyViewModel? SelectedItem
         {
             get => _selectedItem;
             set
@@ -77,7 +77,7 @@ namespace CryptoViewer.WPF.ViewModels
 
             _navigationService = navigationService;
             _currencyManager = new CurrencyManager();
-            _currencies = new ObservableCollection<CurrencyListItemViewModel>();
+            _currencies = new ObservableCollection<CurrencyViewModel>();
 
             DisplayedCurrencies = CollectionViewSource.GetDefaultView(Currencies);
             DisplayedCurrencies.Filter = Filter;
@@ -98,7 +98,7 @@ namespace CryptoViewer.WPF.ViewModels
 
         private bool Filter(object obj)
         {
-            if (obj is CurrencyListItemViewModel item)
+            if (obj is CurrencyViewModel item)
             {
                 return item.Name.ToLower().Contains(_searchString.ToLower()) || item.Symbol.ToLower().Contains(_searchString.ToLower());
             }

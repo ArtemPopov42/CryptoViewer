@@ -20,11 +20,23 @@ namespace CryptoViewer.WPF.ViewModels
         public string Price => _market.PriceUsd;
         public string Symbol => _market.BaseSymbol + _market.QuoteSymbol;
 
+        public double PriceDouble => ParceToDouble(Price);
+        public double VolumeDouble => ParceToDouble(Volume);
+
         public DateTime Timestamp => DateTimeOffset.FromUnixTimeMilliseconds(_market.Updated).DateTime;
 
         public MarketViewModel(Market market)
         {
             _market = market;
+        }
+
+        private double ParceToDouble(string str, int symbols = 3)
+        {
+            if (str is null || str == string.Empty)
+            {
+                return 0;
+            }
+            return Math.Round(double.Parse(str, System.Globalization.CultureInfo.InvariantCulture), symbols);
         }
     }
 }

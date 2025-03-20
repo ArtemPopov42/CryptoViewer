@@ -31,6 +31,7 @@ namespace CryptoViewer.WPF.Commands
                         _viewModel.Markets.Add(market);
                     }
                 }
+                _viewModel.SelectedMarket = null;
             } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);

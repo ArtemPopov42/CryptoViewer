@@ -23,7 +23,9 @@
             <TextBox Grid.Column="1" Width="150" Text="{Binding SearchString, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding DisplayedCurrencies}" SelectedItem="{Binding SelectedItem}">
+        <ListView Grid.Row="1" 
+                  ItemsSource="{Binding DisplayedCurrencies}" 
+                  SelectedItem="{Binding SelectedItem}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseLeftButtonUp">
                     <i:InvokeCommandAction Command="{Binding ShowCarrencyDetails}"/>
@@ -48,14 +50,14 @@
                     <GridViewColumn Header="Price">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Price}"/>
+                                <TextBlock Text="{Binding PriceDouble}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Price Change 24hr">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Change}"/>
+                                <TextBlock Text="{Binding ChangeDouble}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

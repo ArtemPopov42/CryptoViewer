@@ -4,91 +4,138 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CryptoViewer.WPF.Views"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Vertical" Grid.Row="0">
-            <TextBlock Text="{Binding CurrencyInfo.Name}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Row="0">
+                <TextBlock Text="{Binding CurrencyInfo.Name}"
                    FontSize="24"/>
 
-            <Grid Margin="0 10" DataContext="{Binding CurrencyInfo}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Vertical">
-                    <TextBlock Text="Symbol:"/>
-                    <TextBlock Text="Price USD:"/>
-                    <TextBlock Text="MarketCap USD:"/>
-                    <TextBlock Text="Price change 24 hours:"/>
-                    <TextBlock Text="Volume 24 hours:"/>
-                    <TextBlock Text="vwap 24 hours:"/>
-                    <TextBlock Text="Suply:"/>
-                    <TextBlock Text="Max suply:"/>
-                </StackPanel>
-                <StackPanel Grid.Column="1" 
+                <Grid Margin="0 10" DataContext="{Binding CurrencyInfo}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Symbol:"/>
+                        <TextBlock Text="Price USD:"/>
+                        <TextBlock Text="MarketCap USD:"/>
+                        <TextBlock Text="Price change 24 hours:"/>
+                        <TextBlock Text="Volume 24 hours:"/>
+                        <TextBlock Text="vwap 24 hours:"/>
+                        <TextBlock Text="Suply:"/>
+                        <TextBlock Text="Max suply:"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" 
                             Orientation="Vertical"
                             Margin="10 0 0 0">
-                    <TextBlock Text="{Binding Symbol}"/>
-                    <TextBlock Text="{Binding Price}"/>
-                    <TextBlock Text="{Binding MarketCap}"/>
-                    <TextBlock Text="{Binding Change}"/>
-                    <TextBlock Text="{Binding Volume}"/>
-                    <TextBlock Text="{Binding Vwap}"/>
-                    <TextBlock Text="{Binding Supply}"/>
-                    <TextBlock Text="{Binding MaxSupply}"/>
+                        <TextBlock Text="{Binding Symbol}"/>
+                        <TextBlock Text="{Binding PriceDouble}"/>
+                        <TextBlock Text="{Binding MarketCapDouble}"/>
+                        <TextBlock Text="{Binding ChangeDouble}"/>
+                        <TextBlock Text="{Binding VolumeDouble}"/>
+                        <TextBlock Text="{Binding VwapDouble}"/>
+                        <TextBlock Text="{Binding SupplyDouble}"/>
+                        <TextBlock Text="{Binding MaxSupplyDouble}"/>
+                    </StackPanel>
+                </Grid>
+
+                <TextBlock Text="Avalable markets:"
+                       FontSize="20"/>
+            </StackPanel>
+
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding Markets}"
+                      SelectedItem="{Binding SelectedMarket}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding ShowChart}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Exchange">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Symbol">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Symbol}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Price, USD">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding PriceDouble}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Volume 24Hr">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding VolumeDouble}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Time">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Timestamp}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" 
+                            Orientation="Horizontal">
+                    <TextBlock Text="Symbol:" FontSize="20"/>
+                    <TextBlock Text="{Binding SelectedSymbol}" FontSize="20"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" 
+                            Orientation="Horizontal">
+                    <Button Content="1m" Command="{Binding SwitchInterval}" CommandParameter="1m"/>
+                    <Button Content="5m" Command="{Binding SwitchInterval}" CommandParameter="5m"/>
+                    <Button Content="15m" Command="{Binding SwitchInterval}" CommandParameter="15m"/>
+                    <Button Content="1h" Command="{Binding SwitchInterval}" CommandParameter="1h"/>
+                    <Button Content="1d" Command="{Binding SwitchInterval}" CommandParameter="1d"/>
                 </StackPanel>
             </Grid>
-            
-            <TextBlock Text="Avalable markets:"
-                       FontSize="20"/>
-        </StackPanel>
-
-        <ListView Grid.Row="1"
-                  ItemsSource="{Binding Markets}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Exchange name">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Symbol">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Symbol}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Price, USD">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Price}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Volume 24Hr">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Volume}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Time">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Timestamp}"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+            <lvc:CartesianChart Series="{Binding Series}" Grid.Row="1">
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Labels="{Binding Labels}"/>
+                </lvc:CartesianChart.AxisX>
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Title="Price"/>
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Grid>
     </Grid>
 </UserControl>
