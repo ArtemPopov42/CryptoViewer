@@ -1,11 +1,8 @@
 Notes:
 
-	- For all data except charts, the application uses CoinCap API v3 instead of v2  proposed in the test assignment, 
-because according to CoinCap documentation, the second version will be clossed on March 31 2025.
-	- Due to limitations on the free plan of the CoinCap API, the number of loaded currencies is limited to 10, 
-and the number of loaded markets for each currency is limited to 20. Additionally, update rate for both lists is set to 30 seconds.
-	- For loading chart used data the Binance API because CoinCap API does not have suitable endpoints, 
-but Binance API provides data only for exchanges between cryptocurrencies, which means the application cannot provide data for exchanges like Bitcoin to US dollars.
+	- For all data except charts, the application uses CoinCap API v3 instead of v2  proposed in the test assignment, because according to CoinCap documentation, the second version will be clossed on March 31 2025.
+	- Due to limitations on the free plan of the CoinCap API, the number of loaded currencies is limited to 10, and the number of loaded markets for each currency is limited to 20. Additionally, update rate for both lists is set to 30 seconds.
+	- For loading chart used data the Binance API because CoinCap API does not have suitable endpoints, but Binance API provides data only for exchanges between cryptocurrencies, which means the application cannot provide data for exchanges like Bitcoin to US dollars.
 
 Main View:
 
