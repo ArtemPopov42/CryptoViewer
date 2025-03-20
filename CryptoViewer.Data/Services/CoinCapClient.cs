@@ -21,9 +21,9 @@ namespace CryptoViewer.Data.Services
         {
             _httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("https://api.coincap.io/v2/"),
+                BaseAddress = new Uri("https://rest.coincap.io/v3/"),
             };
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "08eb1791-06ad-456b-8886-6270514d73e4");
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "1122d87bc8adad85d3690f6a90e94800b5b1e24fb927af35b8447f7a849a9445");
         }
 
         public static CoinCapClient GetClient()

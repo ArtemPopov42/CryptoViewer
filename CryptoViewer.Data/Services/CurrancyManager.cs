@@ -47,7 +47,7 @@ namespace CryptoViewer.Data.Services
 
         public async Task<IEnumerable<Market>?> GetAssetMarketsAsync(string currencyId)
         {
-            string responceStr = await _coinCapClient.GetAsync("markets?baseId="+currencyId+"&limit=30");
+            string responceStr = await _coinCapClient.GetAsync("markets?baseId="+currencyId+"&limit=20");
 
             ResponceList<Market>? responce = Serialaizer.Deserialize<ResponceList<Market>>(responceStr);
 
